@@ -4,455 +4,551 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- --- OPEN GRAPH & SEO (CHO FACEBOOK/LINKEDIN) --- -->
-    <!-- 1. Tiêu đề hiển thị to, rõ -->
-    <title>Nguyen To Quoc Viet | RTL Design Engineer</title>
-    <meta property="og:title" content="Nguyen To Quoc Viet | RTL Design Engineer">
-    
-    <!-- 2. Mô tả ngắn gọn, thu hút (Dòng chữ nhỏ dưới tiêu đề) -->
+    <title>Nguyen To Quoc Viet | RTL Design & Architecture</title>
+    <meta property="og:title" content="Nguyen To Quoc Viet | RTL Design & Architecture">
     <meta name="description" content="Sinh viên Tài năng Kỹ thuật Máy tính - ĐH Bách Khoa TP.HCM. Chuyên sâu về RTL Design, SoC Architecture & Verification.">
-    <meta property="og:description" content="Sinh viên Tài năng Kỹ thuật Máy tính - ĐH Bách Khoa TP.HCM. Chuyên sâu về RTL Design, SoC Architecture & Verification.">
-    
-    <!-- 3. Ảnh hiển thị (QUAN TRỌNG NHẤT) -->
-    <!-- Lưu ý: Bạn cần thay đường dẫn bên dưới bằng đường dẫn thật khi deploy lên GitHub -->
-    <!-- Ví dụ: https://nguyentoquocviet.github.io/portfolio/image/social-preview.png -->
     <meta property="og:image" content="https://nguyentoquocviet.github.io/portfolio/image/social-preview.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     
-    <!-- 4. Các thông số khác -->
-    <meta property="og:url" content="https://nguyentoquocviet.github.io/portfolio/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Quoc Viet Portfolio">
-    
-    <!-- Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. DESIGN TOKENS (HIERARCHY GLASS SYSTEM) --- */
+        /* --- DESIGN TOKENS: ONE UI 8 GLASSMORPHISM --- */
         :root {
-            --bg-color: #dbe4f0; 
-            --glass-blur: 40px;
-            --accent-color: #0056b3;
-            --text-primary: #1a2a3a;
-            --text-secondary: #4a5568;
-            --section-spacing: 150px;
+            --bg-base: #e9ecef; 
             
-            /* LEVEL 1: Kính Bao Trùm (Rộng nhất, mờ nhất) */
-            --glass-lvl1-bg: rgba(255, 255, 255, 0.2);
-            --glass-lvl1-border: 1px solid rgba(255, 255, 255, 0.25);
-            --shadow-lvl1: 0 20px 40px rgba(0,0,0,0.03);
+            --glass-blur: blur(40px) saturate(180%);
+            /* Tạo màu nền kính vuốt xéo để có độ khối (giả lập asymetric lighting) */
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 100%);
             
-            /* LEVEL 2: Kính Nội Dung (Sáng hơn, đè lên ảnh) */
-            --glass-lvl2-bg: rgba(255, 255, 255, 0.65);
-            --glass-lvl2-border: 1px solid rgba(255, 255, 255, 0.5);
-            --shadow-lvl2: 0 15px 35px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.4) inset;
-
-            /* LEVEL 3: Kính Mini (Sáng nhất, nổi bật nhất - Cho Stats) */
-            /* ĐỔI MÀU Ở ĐÂY: Thay 255, 255, 255 (Trắng) thành 235, 240, 245 (Xám xanh nhẹ) */
-            --glass-lvl3-bg: rgba(235, 240, 245, 0.85); 
+            /* Viền ngoài mỏng */
+            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
             
-            --glass-lvl3-border: 1px solid rgba(255, 255, 255, 0.9);
-            --shadow-lvl3: 
-                0 10px 20px rgba(0,0,0,0.12), 
-                0 5px 10px rgba(0,0,0,0.05),
-                inset 0 1px 0 rgba(255,255,255,1); /* Highlight cạnh trên */
+            /* Bóng đổ 3D nhiều lớp (Outer + Inner Bevel) */
+            --glass-shadow-3d: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.1),          /* Bóng đổ tách nền */
+                inset 0 2px 3px rgba(255, 255, 255, 0.9),      /* Bắt sáng viền trên (độ dày kính) */
+                inset 2px 0 3px rgba(255, 255, 255, 0.7),      /* Bắt sáng viền trái */
+                inset -2px -2px 4px rgba(255, 255, 255, 0.2);  /* Khúc xạ viền dưới/phải */
+            
+            --radius-lg: 36px;
+            --radius-md: 24px;
+            --radius-sm: 16px;
+            
+            --text-primary: #000000; /* Chuyển thành Đen tuyền */
+            --text-secondary: #000000; /* Xóa bỏ màu xám, thay bằng Đen tuyền */
+            --text-accent: #2563eb; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-base);
             color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
-            line-height: 1.7;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* --- SHARED CLASSES --- */
-        .glass-base {
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border-radius: 24px;
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            will-change: backdrop-filter;
+        .ambient-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; overflow: hidden; pointer-events: none;
+            background: #f3f4f6;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(90px);
+            animation: float-orb 20s infinite alternate ease-in-out;
+        }
+        .orb-1 { background: #a5b4fc; width: 70vw; height: 70vw; top: -20%; left: -10%; opacity: 0.6; animation-delay: 0s;}
+        .orb-2 { background: #fbcfe8; width: 60vw; height: 60vw; bottom: -10%; right: -10%; opacity: 0.6; animation-delay: -5s;}
+        .orb-3 { background: #bfdbfe; width: 50vw; height: 50vw; top: 30%; left: 30%; opacity: 0.5; animation-delay: -10s;}
+        .orb-4 { background: #ddd6fe; width: 40vw; height: 40vw; bottom: 20%; left: 10%; opacity: 0.5; animation-delay: -15s;}
+
+        @keyframes float-orb {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(5vw, 5vh) scale(1.1) rotate(10deg); }
+            100% { transform: translate(-5vw, 10vh) scale(0.9) rotate(-10deg); }
         }
 
-        /* --- 2. HERO SECTION --- */
-        .hero-wrapper {
-            position: relative; width: 100%; height: 100vh; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 100px;
-            perspective: 1000px;
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
+
+        .mono { font-family: 'Fira Code', monospace; }
+
+        .container {
+            max-width: 1150px; margin: 0 auto; padding: 60px 20px;
+            display: flex; flex-direction: column; gap: 24px;
         }
 
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1624365169455-875b47a3245f?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center; z-index: 1;
-            filter: grayscale(80%);
-        }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(220, 228, 240, 0.7); z-index: 2; mix-blend-mode: hard-light; }
-        .hero-fade-bottom {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
-            background: linear-gradient(to top, var(--bg-color), transparent); z-index: 4; pointer-events: none;
+        /* --- THE VOLUMETRIC GLASS MATERIAL --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--glass-shadow-3d);
+            position: relative;
+            z-index: 10;
+            
+            /* Thêm transition để xử lý hiệu ứng mượt mà */
+            transition: border 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
         }
 
-        /* Hero Decor */
-        .hero-decor-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
-        .hero-orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.6; animation: float 10s infinite ease-in-out alternate; }
-        .orb-blue { top: 20%; left: 20%; width: 300px; height: 300px; background: #a6c1ee; animation-delay: 0s; }
-        .orb-purple { bottom: 20%; right: 20%; width: 400px; height: 400px; background: #fbc2eb; animation-delay: -2s; opacity: 0.4; }
-
-        .hero-chip {
-            position: absolute; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15); opacity: 0.8;
-            filter: grayscale(20%) contrast(1.1);
-            animation: drift 20s infinite linear;
-            border: 1px solid rgba(255,255,255,0.4);
-            backface-visibility: hidden; transform: translate3d(0,0,0);
+        /* Hiệu ứng quang học khi tương tác (Không nhúc nhích khối) */
+        .glass-panel:hover {
+            /* Giảm blur để lộ màu nền, tạo cảm giác focus */
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            
+            /* Viền đen tinh tế định hình giới hạn khối kính */
+            border: 1px solid rgba(17, 24, 39, 0.3);
+            
+            /* Hiệu chỉnh lại bóng đổ: Giảm lóa trắng, tăng chiều sâu lớp nền */
+            box-shadow: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.15),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 1px 0 2px rgba(255, 255, 255, 0.6);
         }
-        .chip-1 { width: 220px; top: 15%; left: 10%; animation-duration: 25s; }
-        .chip-2 { width: 280px; bottom: 15%; right: 8%; animation-duration: 30s; animation-direction: reverse; }
-        .chip-3 { width: 150px; top: 20%; right: 20%; opacity: 0.4; filter: blur(2px); animation-duration: 18s; }
 
-        .hero-content { position: relative; z-index: 5; text-align: center; max-width: 900px; padding: 0 20px; }
-        .hero-title {
-            font-size: 5.5rem; font-weight: 800; letter-spacing: -3px; line-height: 1.1; 
-            background: linear-gradient(180deg, #1a2a3a 0%, #4a5568 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            opacity: 0; transform: translateY(30px); animation: fadeUp 1s forwards 0.5s;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-        }
-        .hero-subtitle {
-            font-size: 1.4rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 40px;
-            opacity: 0; transform: translateY(30px); animation: fadeUp 1s forwards 0.8s;
-        }
-        .scroll-indicator {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 5;
-            color: var(--text-secondary); opacity: 0.7;
-            animation: bounce 2s infinite; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem; gap: 10px;
-        }
-        .mouse { width: 26px; height: 40px; border: 2px solid var(--text-secondary); border-radius: 20px; position: relative; }
-        .wheel { width: 4px; height: 8px; background: var(--text-secondary); border-radius: 2px; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); }
+        .top-section { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; }
 
-        /* --- 3. SHARED COMPONENTS --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
-        .section-header { margin-bottom: 80px; text-align: center; }
-        .section-header h2 { font-size: 3rem; font-weight: 800; color: var(--text-primary); }
-
-        /* --- 4. ABOUT SECTION (CẤU TRÚC 3 TẦNG KÍNH) --- */
-        #about { margin-bottom: var(--section-spacing); position: relative; }
+        .hero-panel { display: flex; flex-direction: column; } /* Đã xóa justify-content: center để auto margin hoạt động */
+        .intro-title { font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 12px; letter-spacing: -1.5px; }
+        .intro-title span { color: var(--text-accent); }
         
-        .tech-decor-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; }
-        .tech-decor {
-            position: absolute; opacity: 0.15; filter: grayscale(100%) contrast(1.2);
-            border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transform: translate3d(0,0,0); 
-        }
-        .decor-schematic { width: 300px; top: -60px; right: 0; transform: rotate(12deg) translate3d(0,0,0); }
-        .decor-wafer { width: 250px; bottom: -50px; left: -40px; transform: rotate(-8deg) translate3d(0,0,0); }
+        /* Bố cục mới: Tách biệt tên và tagline để nổi bật và chống rớt chữ */
+        .hero-identity { margin-top: 16px; border-left: 4px solid var(--text-accent); padding-left: 16px; }
+        .hero-name { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.5px; margin-bottom: 4px; }
+        .intro-tagline { font-size: 1.05rem; color: var(--text-secondary); font-weight: 500; }
 
-        /* LEVEL 1: CONTAINER KÍNH LỚN */
-        .about-glass-wrapper {
-            background: var(--glass-lvl1-bg);
-            border: var(--glass-lvl1-border);
-            box-shadow: var(--shadow-lvl1);
-            border-radius: 40px;
-            padding: 60px;
-            /* Container này bao trùm tất cả */
+        .avatar-panel { padding: 12px; display: flex; align-items: center; justify-content: center; }
+        .avatar-panel img {
+            width: 100%; height: 100%; min-height: 280px; object-fit: cover; 
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- LAYOUT SECTION 2: ABOUT & STATS (Redesigned with Strong Divider) --- */
+        .about-grid {
+            display: grid; 
+            /* Thu hẹp cột bên phải lại còn 190px, vừa khít chữ "Talent Eng CE" để trả không gian cho Text */
+            grid-template-columns: 1fr auto 190px; 
+            align-items: stretch; 
+        }
+        .story-content {
+            padding-right: 40px; 
+        }
+        .story-content h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: var(--text-primary); letter-spacing: -0.5px;}
+        .story-content p { margin-bottom: 16px; color: var(--text-secondary); font-size: 1.05rem; text-align: justify; line-height: 1.7; }
+        .story-content strong { color: var(--text-primary); font-weight: 700; }
+        
+        /* Giải pháp 1: Vạch phân chia nổi bật (Main Divider) */
+        .main-divider {
+            width: 6px; /* Dày thêm theo yêu cầu */
+            background: linear-gradient(to bottom, var(--text-accent) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        /* Giải pháp 2: Phân tách rõ các hàng thông số */
+        .stats-vertical {
+            display: flex; flex-direction: column; justify-content: flex-start; /* Căn thẳng lên đỉnh cùng với nội dung Text */
+            padding-left: 40px; 
+            padding-top: 4px; /* Tinh chỉnh nhỏ để đường gióng ngang khớp tuyệt đối với chữ H2 */
+        }
+        .stat-raw {
+            display: flex; flex-direction: column; align-items: flex-start; width: 100%;
+        }
+        /* Thêm rãnh khắc ngang giữa các mục (trừ mục cuối cùng) */
+        .stat-raw:not(:last-child) {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.15); /* Dày và đậm hơn */
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); /* Highlight mạnh hơn tạo rãnh sâu */
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        .stat-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 700;}
+        .stat-value { font-size: 1.15rem; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+
+        /* --- LOGO HCMUT --- */
+        .hcmut-logo-container {
             display: flex;
+            justify-content: center; /* Căn giữa logo theo trục của cột thông số */
+            margin-bottom: 20px; /* Cùng margin-bottom với thẻ h2 bên trái để tạo sự đối xứng tuyệt đối */
+            height: 76px; /* Set cứng chiều cao bằng độ cao chữ h2 */
             align-items: center;
-            position: relative;
-            z-index: 2;
         }
-
-        /* ẢNH (Nằm bên trái trong container kính lớn) */
-        .about-visual {
-            width: 45%; 
-            height: 600px;
-            border-radius: 30px; overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative;
-            background-image: url('image/quocviet.png'); 
-            background-size: cover; background-position: center;
-            transform: translate3d(0,0,0);
-            z-index: 1;
-        }
-
-        /* LEVEL 2: KÍNH NỘI DUNG CHỮ (Đè lên ảnh) */
-        .about-content-glass {
-            background: var(--glass-lvl2-bg);
-            border: var(--glass-lvl2-border);
-            box-shadow: var(--shadow-lvl2);
-            border-radius: 24px;
-            padding: 50px;
-            width: 60%; /* Chiếm 60% chiều ngang container */
-            margin-left: -5%; /* Overlap lên ảnh */
-            position: relative;
-            z-index: 3; /* Nằm trên ảnh */
-        }
-        
-        .about-content-glass h3 { font-size: 2rem; margin-bottom: 20px; font-weight: 800; color: var(--accent-color); }
-        .about-content-glass p { font-size: 1.05rem; color: var(--text-primary); margin-bottom: 20px; text-align: justify; }
-        .highlight-text { font-weight: 700; color: #000; }
-        
-        /* LEVEL 3: 3 TẤM KÍNH MINI (STATS) */
-        .about-stats-container {
-            display: flex; gap: 15px; flex-wrap: wrap; margin-top: 35px;
-        }
-
-        .stat-glass-mini {
-            background: var(--glass-lvl3-bg);
-            border: var(--glass-lvl3-border);
-            box-shadow: var(--shadow-lvl3);
-            border-radius: 16px;
-            padding: 15px 20px;
-            flex: 1; min-width: 130px;
-            display: flex; flex-direction: column;
+        .hcmut-logo {
+            height: 100%; /* Căn theo height của container để logo nhỏ lại */
+            width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); /* Bóng đổ nhẹ tách khối khỏi mặt kính */
             transition: transform 0.3s ease;
         }
-        
-        /* Hiệu ứng hover nhẹ cho stats */
-        .stat-glass-mini:hover { transform: translateY(-3px); }
+        .hcmut-logo:hover { transform: scale(1.05); }
 
-        .stat-label { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-        .stat-value { font-size: 1rem; font-weight: 800; color: var(--accent-color); }
+        /* --- MẠNG XÃ HỘI (SOCIAL LINKS) --- */
+        .social-links {
+            display: flex; gap: 16px; 
+            margin-top: auto; /* Đẩy cụm Icon dính chặt vào mép dưới cùng của tấm kính */
+            padding-top: 32px; 
+        }
+        .social-icon {
+            display: flex; align-items: center; justify-content: center;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04), inset 0 1px 2px rgba(255,255,255,0.9);
+            color: var(--text-secondary); text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Quỹ đạo nảy vật lý mượt */
+        }
+        .social-icon svg {
+            width: 20px; height: 20px; fill: currentColor;
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+        /* Hiệu ứng chi tiết 3D khi tương tác */
+        .social-icon:hover {
+            transform: translateY(-6px) scale(1.08); /* Nổi bật bằng cách nhấc lên và phóng to */
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 100%);
+            border-color: #fff;
+            box-shadow: 
+                0 15px 25px -5px rgba(0,0,0,0.15), /* Bóng thả sâu xuống */
+                inset 0 4px 5px rgba(255,255,255,1), /* Highlight dâng lên ở đỉnh */
+                inset 0 -2px 5px rgba(0,0,0,0.05); /* Bóng chìm tạo khối cầu ở đáy */
+        }
+        .social-icon:hover svg { transform: scale(1.15); }
+        /* Đổi màu theo nền tảng */
+        .social-icon.fb:hover { color: #1877F2; }
+        .social-icon.mail:hover { color: #EA4335; }
+        .social-icon.in:hover { color: #0A66C2; }
+        .social-icon.gh:hover { color: #111827; }
 
-        /* --- 5. PROJECTS SECTION --- */
-        #projects { margin-bottom: var(--section-spacing); }
-        
-        .glass-stage {
-            background: var(--glass-lvl1-bg);
-            border: var(--glass-lvl1-border);
-            box-shadow: var(--shadow-lvl1);
-            border-radius: 40px;
-            padding: 80px 40px;
-            margin-top: 40px;
+        /* --- HỆ THỐNG MÀU THEME CHO TỪNG PROJECT --- */
+        #proj-ai  { --theme-color: #2563eb; --theme-glow: rgba(37, 99, 235, 0.15); --theme-glow-strong: rgba(37, 99, 235, 0.4); }
+        #proj-cpu { --theme-color: #7c3aed; --theme-glow: rgba(124, 58, 237, 0.15); --theme-glow-strong: rgba(124, 58, 237, 0.4); }
+        #proj-ip  { --theme-color: #059669; --theme-glow: rgba(5, 150, 105, 0.15); --theme-glow-strong: rgba(5, 150, 105, 0.4); }
+        #proj-eda { --theme-color: #d97706; --theme-glow: rgba(217, 119, 6, 0.15); --theme-glow-strong: rgba(217, 119, 6, 0.4); }
+
+        /* Tinh chỉnh Tech Stack ngay ngắn & Thêm Toggle Kế thừa Màu */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; align-items: center; }
+        .tech-tag {
+            font-size: 0.8rem; padding: 8px 16px; border-radius: 20px;
+            background: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,1); 
+            color: var(--text-primary); font-weight: 600; line-height: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 1px rgba(255,255,255,1);
+            backdrop-filter: blur(10px); display: inline-flex; align-items: center;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;
+        }
+        /* Hiệu ứng Toggle cho viên Pill: Tự động bắt màu theo Theme */
+        .tech-tag:hover {
+            transform: translateY(-3px);
+            background: #ffffff;
+            border-color: var(--theme-color, var(--text-accent));
+            color: var(--theme-color, var(--text-accent));
+            box-shadow: 0 6px 12px var(--theme-glow, rgba(37, 99, 235, 0.15)), inset 0 1px 1px rgba(255,255,255,1);
         }
 
-        .project-item { display: flex; align-items: center; margin-bottom: 120px; }
-        .project-item:last-child { margin-bottom: 0; }
+        .section-title { font-size: 1.8rem; font-weight: 800; margin: 20px 0 10px 0; letter-spacing: -0.5px; }
         
-        .project-visual { 
-            width: 65%; height: 500px; border-radius: 30px; overflow: hidden; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; 
-            transform: translate3d(0,0,0); z-index: 1;
+        .dashboard-container { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
+
+        .project-tabs { display: flex; flex-direction: column; gap: 12px; }
+        .tab-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.5);
+            padding: 18px 24px; border-radius: var(--radius-md);
+            text-align: left; cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            color: var(--text-secondary); font-weight: 600; font-size: 1rem; font-family: 'Inter', sans-serif;
+            backdrop-filter: blur(10px);
         }
-        .project-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-        .project-visual:hover img { transform: scale(1.05); }
+        .tab-btn:hover { background: rgba(255,255,255,0.5); transform: translateX(4px); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%); 
+            color: var(--text-accent);
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.06),
+                inset 0 2px 2px #fff;
+            transform: translateX(8px); font-weight: 700;
+        }
+
+        .project-content-area { position: relative; min-height: 420px; }
         
-        .project-detail { 
-            background: var(--glass-lvl2-bg);
-            border: var(--glass-lvl2-border);
-            box-shadow: var(--shadow-lvl2);
-            border-radius: 24px;
-            padding: 50px;
-            width: 45%; margin-left: -10%; z-index: 3;
+        .project-pane {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.98);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex; flex-direction: column;
+            border-radius: var(--radius-lg);
         }
         
-        .project-detail h3 { font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; font-weight: 700; }
-        .project-detail p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px; }
-        
-        .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
-        .tag { 
-            padding: 8px 16px; background: rgba(255,255,255,0.5); border-radius: 50px; 
-            font-size: 0.85rem; font-weight: 600; color: var(--accent-color); border: 1px solid rgba(0, 86, 179, 0.1); 
+        .project-pane.active {
+            opacity: 1; visibility: visible; transform: translateY(0) scale(1);
+            position: relative; 
         }
-        .project-item.alt { flex-direction: row-reverse; }
-        .project-item.alt .project-detail { margin-left: 0; margin-right: -10%; }
+
+        .proj-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;}
+        .project-title { font-size: 2rem; font-weight: 800; color: var(--text-primary); line-height: 1.2; letter-spacing: -0.5px;}
         
-        .btn-link { font-weight: 700; color: var(--text-primary); text-decoration: none; border-bottom: 2px solid var(--accent-color); padding-bottom: 2px; transition: 0.3s; }
-        .btn-link:hover { color: var(--accent-color); }
+        /* Nhãn Project tự động lấy màu nền theo Theme */
+        .project-label { 
+            font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; color: #fff; 
+            background: var(--theme-color, var(--text-accent)); 
+            padding: 4px 12px; border-radius: 12px; 
+            box-shadow: 0 4px 10px var(--theme-glow-strong, rgba(37, 99, 235, 0.3));
+        }
+        
+        .project-desc { color: var(--text-secondary); margin-bottom: 30px; font-size: 1.05rem; line-height: 1.7; text-align: justify;}
+        
+        .project-links { margin-top: auto; display: flex; gap: 16px; }
+        .btn {
+            padding: 12px 28px; border-radius: 30px; font-size: 0.95rem; font-weight: 700; text-decoration: none; 
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: rgba(255,255,255,0.9); color: var(--text-primary); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,1);
+        }
+        /* Nút bấm tự động bắt màu theo Theme khi hover */
+        .btn:hover { 
+            transform: translateY(-3px); background: #fff;
+            border-color: var(--theme-color, var(--text-accent));
+            color: var(--theme-color, var(--text-accent));
+            box-shadow: 0 8px 20px var(--theme-glow, rgba(0,0,0,0.1)); 
+        }
 
-        /* FOOTER */
-        footer { text-align: center; padding: 80px 0; opacity: 0.7; font-size: 0.9rem; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.05)); }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* ANIMATIONS & RESPONSIVE */
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
-        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, -30px); } }
-        @keyframes drift { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } 100% { transform: translateY(0) rotate(0deg); } }
-
-        .reveal { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); will-change: transform, opacity; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 1024px) {
-            .hero-title { font-size: 4rem; }
-            .about-glass-wrapper { flex-direction: column; padding: 30px; }
-            .about-visual { width: 100%; height: 400px; margin-bottom: -50px; z-index: 1; }
-            .about-content-glass { width: 100%; margin-left: 0; z-index: 2; padding: 30px; }
+        @media (max-width: 960px) {
+            .top-section { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-container { grid-template-columns: 1fr; }
+            .project-tabs { flex-direction: row; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; }
+            .tab-btn { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; transform: none !important;}
+            .tab-btn.active { transform: translateY(-4px) !important; }
+            .project-content-area { min-height: auto; }
+            .orb { opacity: 0.4; } 
             
-            .hero-chip { display: none; }
-            .project-item, .project-item.alt { flex-direction: column; margin-bottom: 80px; }
-            .project-visual { width: 100%; height: 300px; }
-            .project-detail, .project-item.alt .project-detail { width: 100%; margin: -40px auto 0 auto; }
-        }
-        @media (max-width: 768px) {
-            .hero-title { font-size: 3rem; }
-            .about-stats-container { flex-direction: column; }
+            /* Responsive cho phần chia cột trên Mobile */
+            .about-grid { grid-template-columns: 1fr; }
+            .story-content { 
+                padding-right: 0; padding-bottom: 24px; 
+            }
+            .main-divider {
+                width: 100%; height: 6px; /* Đổi thành vạch ngang 6px trên mobile */
+                background: linear-gradient(to right, var(--text-accent) 0%, rgba(37, 99, 235, 0.1) 100%);
+                margin: 0;
+            }
+            .stats-vertical { 
+                padding-left: 0; padding-top: 24px;
+            }
+            .hcmut-logo-container {
+                width: 100%; justify-content: center; margin-bottom: 24px; height: 32px;
+            }
+            .stat-raw:not(:last-child) {
+                padding-bottom: 16px; margin-bottom: 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION -->
-    <div class="hero-wrapper">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-decor-container">
-            <div class="hero-orb orb-blue"></div>
-            <div class="hero-orb orb-purple"></div>
-            <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=500&auto=format&fit=crop" class="hero-chip chip-1" alt="Logic Gates">
-            <img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?q=80&w=500&auto=format&fit=crop" class="hero-chip chip-2" alt="Silicon Wafer">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=500&auto=format&fit=crop" class="hero-chip chip-3" alt="Abstract Data">
-        </div>
-
-        <div class="hero-content">
-            <h1 class="hero-title">RTL Design <br> & Architecture.</h1>
-            <p class="hero-subtitle">Nguyễn Tô Quốc Việt — Architecting the silicon future.</p>
-            <a href="#about" style="background: var(--text-primary); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-block; opacity: 0; animation: fadeUp 1s forwards 1s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s;">My Journey</a>
-        </div>
-        
-        <div class="hero-fade-bottom"></div>
-        <div class="scroll-indicator">
-            <div class="mouse"><div class="wheel"></div></div>
-            <span>Scroll</span>
-        </div>
+    <div class="ambient-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
     </div>
 
     <div class="container">
         
-        <!-- ABOUT SECTION (3 TẦNG KÍNH) -->
-        <section id="about" class="reveal">
-            <div class="tech-decor-container">
-                <img src="https://plus.unsplash.com/premium_photo-1678565869434-c81195861939?q=80&w=500&auto=format&fit=crop" class="tech-decor decor-schematic" alt="Schematic">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=500&auto=format&fit=crop" class="tech-decor decor-wafer" alt="Wafer">
+        <div class="top-section">
+            <div class="glass-panel hero-panel">
+                <h1 class="intro-title">RTL Design <br> & <span>Architecture.</span></h1>
+                <div class="hero-identity">
+                    <h2 class="hero-name">Nguyễn Tô Quốc Việt</h2>
+                    <p class="intro-tagline mono">> Architecting the silicon future.</p>
+                </div>
+                
+                <!-- Khu vực Icon Mạng Xã Hội (Tròn) -->
+                <div class="social-links">
+                    <a href="https://facebook.com/your-link-here" target="_blank" class="social-icon fb" title="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+                    </a>
+                    <a href="mailto:your-email@gmail.com" class="social-icon mail" title="Gmail">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/your-link-here" target="_blank" class="social-icon in" title="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    </a>
+                    <a href="https://github.com/nguyentoquocviet" target="_blank" class="social-icon gh" title="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                    </a>
+                </div>
             </div>
+            <div class="glass-panel avatar-panel">
+                <img src="image/quocviet.png" alt="Nguyen To Quoc Viet">
+            </div>
+        </div>
 
-            <div class="section-header">
-                <h2>The Engineer Behind The Logic</h2>
+        <div class="glass-panel">
+            <div class="about-grid">
+                <div class="story-content">
+                    <h2>Hành Trình Kiến Tạo Bản Thân</h2>
+                    <p>Hành trình của tôi không bắt đầu trong giảng đường, mà bắt đầu từ căn phòng nhỏ thời thơ ấu—nơi tôi tự tay lắp ráp chiếc máy tính đầu tiên để học trực tuyến. Khoảnh khắc những linh kiện vô tri bừng sáng đã khơi dậy trong tôi một sự tò mò mãnh liệt về thế giới logic ẩn sau lớp vỏ silicon: <em>"Làm thế nào những tín hiệu điện đơn giản lại có thể kiến tạo nên cả một thế giới số?"</em></p>
+                    <p>Để thỏa mãn niềm đam mê khám phá đó, tôi chỉ có một cách duy nhất để chinh phục được đó chính là theo đuổi <strong>chương trình Tài năng Kỹ thuật Máy tính</strong> tại ĐH Bách Khoa TP.HCM. Nhưng muốn hiểu sâu thì phải nhìn rộng, đó là lý do tôi quyết định học song hành <strong>Thạc sĩ Khoa học Máy tính</strong> để nắm trọn vẹn bức tranh từ kiến trúc phần cứng vật lý đến thuật toán phần mềm trừu tượng.</p>
+                    <p>Trong lĩnh vực thiết kế vi mạch, tôi đề cao sự <strong>tỉ mỉ và cầu toàn</strong>. Tôi không bao giờ chấp nhận tư duy "code chỉ cần chạy được". Tôi luôn ám ảnh với việc tối ưu hóa từng cycle và khao khát được làm việc cùng những kỹ sư tiền bối để học hỏi tư duy giải quyết vấn đề.</p>
+                    
+                    <div class="tech-stack mono">
+                    <span class="tech-tag">SystemVerilog</span>
+                    <span class="tech-tag">Verilog</span>
+                    <span class="tech-tag">C/C++</span>
+                    <span class="tech-tag">TCL/Python</span>
+                </div>
             </div>
             
-            <!-- TẦNG 1: Kính nền lớn bao trùm tất cả -->
-            <div class="glass-base about-glass-wrapper">
+            <!-- Thẻ DIV đóng vai trò vạch phân cách -->
+            <div class="main-divider"></div>
+
+            <div class="stats-vertical">
+                <!-- Khu vực Logo HCMUT -->
+                <div class="hcmut-logo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/HCMUT_official_logo.png" alt="HCMUT Logo" class="hcmut-logo">
+                </div>
                 
-                <div class="about-visual"></div>
-                
-                <!-- TẦNG 2: Kính nội dung (Đè lên ảnh) -->
-                <div class="glass-base about-content-glass">
-                    <h3>Hành Trình Kiến Tạo Bản Thân</h3>
-                    <p>
-                        Hành trình của tôi không bắt đầu trong giảng đường, mà bắt đầu từ căn phòng nhỏ thời thơ ấu—nơi tôi tự tay lắp ráp chiếc máy tính đầu tiên để học trực tuyến. Khoảnh khắc những linh kiện vô tri bừng sáng đã khơi dậy trong tôi một sự tò mò mãnh liệt về thế giới logic ẩn sau lớp vỏ silicon: <em>"Làm thế nào những tín hiệu điện đơn giản lại có thể kiến tạo nên cả một thế giới số?"</em>
-                    </p>
-                    <p>
-                        Để thỏa mãn niềm đam mê khám phá đó, tôi chỉ có một cách duy nhất để chinh phục được đó chính là theo đuổi <strong>chương trình Tài năng Kỹ thuật Máy tính</strong> tại ĐH Bách Khoa TP.HCM. Nhưng muốn hiểu sâu thì phải nhìn rộng, đó là lý do tôi quyết định học song hành <strong>Thạc sĩ Khoa học Máy tính</strong> để nắm trọn vẹn bức tranh từ kiến trúc phần cứng vật lý đến thuật toán phần mềm trừu tượng.
-                    </p>
-                    <p>
-                        Trong lĩnh vực thiết kế vi mạch, tôi đề cao sự <span class="highlight-text">tỉ mỉ và cầu toàn</span>. Tôi không bao giờ chấp nhận tư duy "code chỉ cần chạy được". Tôi luôn ám ảnh với việc tối ưu hóa từng cycle và khao khát được làm việc cùng những kỹ sư tiền bối để học hỏi tư duy giải quyết vấn đề.
-                    </p>
-                    
-                    <!-- TẦNG 3: Kính Mini nổi bật (Stats) -->
-                    <div class="about-stats-container">
-                        <div class="glass-base stat-glass-mini">
-                            <span class="stat-label">Education Path</span>
-                            <span class="stat-value" style="font-size: 0.9rem;">Talent Eng CE + Master CS</span>
-                        </div>
-                        <div class="glass-base stat-glass-mini">
-                            <span class="stat-label">Academic Performance</span>
-                            <span class="stat-value">GPA 3.4 / 4.0</span>
-                        </div>
-                        <div class="glass-base stat-glass-mini">
-                            <span class="stat-label">English Proficiency</span>
-                            <span class="stat-value">IELTS 7.5</span>
-                        </div>
-                    </div>
+                <div class="stat-raw">
+                    <span class="stat-label">Education</span>
+                    <span class="stat-value mono">Honor Eng CE<br>Master CS</span>
+                </div>
+                <div class="stat-raw">
+                    <span class="stat-label">GPA</span>
+                    <span class="stat-value mono">3.4 / 4.0</span>
+                </div>
+                <div class="stat-raw">
+                    <span class="stat-label">IELTS</span>
+                    <span class="stat-value mono">6.5</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- PROJECTS SECTION -->
-        <section id="projects">
-            <div class="section-header reveal">
-                <h2>Selected Works</h2>
+        <h2 class="section-title">Core Projects Showcase</h2>
+
+        <div class="dashboard-container">
+            
+            <div class="project-tabs">
+                <button class="tab-btn active" onclick="switchTab('proj-ai', this)">Tiny Transformer SoC</button>
+                <button class="tab-btn" onclick="switchTab('proj-cpu', this)">Advanced RISC-V Core</button>
+                <button class="tab-btn" onclick="switchTab('proj-ip', this)">Industrial Timer IP</button>
+                <button class="tab-btn" onclick="switchTab('proj-eda', this)">Vivado Automation Flow</button>
             </div>
 
-            <!-- Tầng 1: Kính nền cho Projects -->
-            <div class="glass-base glass-stage reveal">
+            <div class="project-content-area">
                 
-                <!-- Project 1 -->
-                <div class="project-item">
-                    <div class="project-visual">
-                        <img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?q=80&w=1974&auto=format&fit=crop" alt="CPU Core">
+                <div id="proj-ai" class="glass-panel project-pane active">
+                    <div class="proj-header">
+                        <h3 class="project-title">RISC-V Tiny Transformer SoC</h3>
+                        <!-- Xóa các style màu cứng, để CSS tự bắt biến Theme -->
+                        <span class="project-label mono">AI Accelerator</span>
                     </div>
-                    <!-- Tầng 2: Kính nội dung -->
-                    <div class="glass-base project-detail">
-                        <h3>MIPS 32-bit Pipelined CPU</h3>
-                        <p>Thiết kế lõi vi xử lý MIPS 5 tầng pipeline. Xử lý triệt để các loại Hazard (Data/Control) bằng kỹ thuật Forwarding và Branch Prediction để tối ưu CPI.</p>
-                        <div class="tags">
-                            <span class="tag">Verilog</span>
-                            <span class="tag">System Arch</span>
-                            <span class="tag">ModelSim</span>
-                        </div>
-                        <a href="#" class="btn-link">View RTL Code</a>
+                    <p class="project-desc">
+                        Hệ thống phần cứng chuyên biệt tối ưu cho mô hình AI. Trọng tâm thiết kế xoay quanh kiến trúc <strong>Systolic Array</strong> (PE, MAC) để tăng tốc tính toán ma trận cường độ cao. Tích hợp module <strong>Multi-Head Attention</strong> (MHA), cơ chế <strong>Direct Memory Access</strong> (DMA) và Vector SRAM để tối ưu hóa triệt để băng thông dữ liệu giữa bộ nhớ và vi xử lý tăng tốc.
+                    </p>
+                    <div class="tech-stack mono" style="margin-bottom: 30px;">
+                        <span class="tech-tag">Tiny-transformer</span>
+                        <span class="tech-tag">Systolic Array</span>
+                        <span class="tech-tag">MHA Hardware</span>
+                        <span class="tech-tag">DMA Controller</span>
                     </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-item alt">
-                    <div class="project-visual">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" alt="Industrial IP">
-                    </div>
-                    <div class="glass-base project-detail">
-                        <h3>Industrial Timer IP Core</h3>
-                        <p>Xây dựng IP Timer chuẩn công nghiệp giao tiếp qua APB Bus. Module tích hợp PWM cho điều khiển động cơ và Watchdog Timer, đảm bảo timing chính xác tuyệt đối.</p>
-                        <div class="tags">
-                            <span class="tag">SystemVerilog</span>
-                            <span class="tag">APB Bus</span>
-                            <span class="tag">UVM Basics</span>
-                        </div>
-                        <a href="#" class="btn-link">View Specs</a>
+                    <div class="project-links mono">
+                        <a href="https://github.com/nguyentoquocviet/riscv-tinytransformer-soc" target="_blank" class="btn">View Source</a>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="project-item">
-                    <div class="project-visual">
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="SoC Bus">
+                <div id="proj-cpu" class="glass-panel project-pane">
+                    <div class="proj-header">
+                        <h3 class="project-title">Advanced 32-bit RISC-V Core</h3>
+                        <!-- Xóa style="background: #7c3aed;" -->
+                        <span class="project-label mono">Core Architecture</span>
                     </div>
-                    <div class="glass-base project-detail">
-                        <h3>AMBA AXI4 Interconnect</h3>
-                        <p>Hệ thống bus giao tiếp hiệu năng cao. Tối ưu hóa băng thông và độ trễ (latency) cho giao tiếp giữa Master và Slave IPs trong các thiết kế SoC phức tạp.</p>
-                        <div class="tags">
-                            <span class="tag">AMBA AXI4</span>
-                            <span class="tag">SoC Design</span>
-                            <span class="tag">Vivado</span>
-                        </div>
-                        <a href="#" class="btn-link">View Architecture</a>
+                    <p class="project-desc">
+                        Thiết kế lõi xử lý <strong>RV32IMV</strong> với 5-stage pipeline, giải quyết triệt để Data/Control Hazards. Tích hợp <strong>L1 Cache Subsystem</strong> (4KB each), <strong>Dynamic Branch Prediction</strong> và giao tiếp <strong>AXI4 Interconnect</strong>. Kiến trúc hiện đang được nâng cấp mở rộng để tích hợp tập lệnh <strong>IME</strong> phục vụ cho các phép nhân ma trận lớn.
+                    </p>
+                    <div class="tech-stack mono" style="margin-bottom: 30px;">
+                        <span class="tech-tag">RV32IMV</span>
+                        <span class="tech-tag">IME</span>
+                        <span class="tech-tag">L1 Cache Subsystem</span>
+                        <span class="tech-tag">Dynamic Branch Prediction</span>
+                        <span class="tech-tag">AXI4 Interconnect</span>
+                    </div>
+                    <div class="project-links mono">
+                        <a href="https://github.com/nguyentoquocviet/Advanced-RISC-V-32-bit-SoC" target="_blank" class="btn">View Architecture</a>
                     </div>
                 </div>
 
-            </div> 
-        </section>
+                <div id="proj-ip" class="glass-panel project-pane">
+                    <div class="proj-header">
+                        <h3 class="project-title">Industrial Timer IP</h3>
+                        <!-- Xóa style="background: #059669;" -->
+                        <span class="project-label mono">Foundation IP</span>
+                    </div>
+                    <p class="project-desc">
+                        Lõi IP Timer <strong>64-bit</strong> chuẩn công nghiệp, giao tiếp thông qua giao thức <strong>APB Bus</strong>. Thiết kế mang tính ứng dụng cao nhờ khả năng tinh chỉnh bộ chia xung nhịp (clock divider) và hỗ trợ truy cập bộ nhớ đến từng byte. Điểm nhấn của kiến trúc nằm ở độ tin cậy: hệ thống được trang bị đầy đủ cơ chế quản lý ngắt, trạng thái chờ (Wait state), <strong>Debug/Halt mode</strong> cùng khối logic <strong>Error Handling</strong> chủ động chặn đứng mọi truy cập ghi không hợp lệ tại runtime.
+                    </p>
+                    <div class="tech-stack mono" style="margin-bottom: 30px;">
+                        <span class="tech-tag">APB Protocol</span>
+                        <span class="tech-tag">64-bit Counter</span>
+                        <span class="tech-tag">Debug/Halt Logic</span>
+                        <span class="tech-tag">Error Handling</span>
+                    </div>
+                    <div class="project-links mono">
+                        <a href="https://github.com/NguyenToQuocViet/Timer-Advanced-IP.git" target="_blank" class="btn">View Specs</a>
+                    </div>
+                </div>
+
+                <div id="proj-eda" class="glass-panel project-pane">
+                    <div class="proj-header">
+                        <h3 class="project-title">Vivado Workflow Automation</h3>
+                        <!-- Xóa style="background: #d97706;" -->
+                        <span class="project-label mono">EDA DevOps</span>
+                    </div>
+                    <p class="project-desc">
+                        Hệ thống script tự động hóa luồng làm việc thiết kế vi mạch chuyên nghiệp. Sử dụng <strong>TCL & Bash</strong> kết hợp <strong>Makefile</strong> để chuẩn hóa toàn bộ quy trình: từ <strong>Simulation</strong>, <strong>Linting</strong>, <strong>Synthesis</strong> cho đến <strong>Implementation</strong>. Giải pháp này giúp loại bỏ hoàn toàn các thao tác click chuột thủ công lặp đi lặp lại trên GUI của Xilinx Vivado.
+                    </p>
+                    <div class="tech-stack mono" style="margin-bottom: 30px;">
+                        <span class="tech-tag">TCL Scripting</span>
+                        <span class="tech-tag">Makefile</span>
+                        <span class="tech-tag">Xilinx Vivado Flow</span>
+                    </div>
+                    <div class="project-links mono">
+                        <a href="https://github.com/nguyentoquocviet/vivado-scripts-automation" target="_blank" class="btn">View Scripts</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
     <footer>
-        <p>&copy; 2025 Nguyen To Quoc Viet. Crafted with engineered precision.</p>
+        <p class="mono">© 2026 Nguyen To Quoc Viet.</p>
     </footer>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        function switchTab(paneId, btnElement) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const panes = document.querySelectorAll('.project-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+            
+            btnElement.classList.add('active');
+            document.getElementById(paneId).classList.add('active');
+        }
     </script>
 
 </body>
